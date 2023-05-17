@@ -1,12 +1,17 @@
+// HOOKS
 import { useEffect, useState } from "react";
+// COMPONENTS
+import Filter from "./components/Filter";
 import Card from "./components/Card";
-import Header from "./components/Header";
-import "./style/main.css";
+// UTILS
 import { data } from "./utils/data";
+// STYLE
+import "./style/main.css";
 
 function App() {
   const [jobs, setJobs] = useState([...data]);
   const [selection, setSelection] = useState([]);
+  // CREATE A NEW ARRAY ACCORDING TO THE FILTER AND THEN PASS IN THE NEW ARRAY
   useEffect(() => {
     if (selection.length > 0) {
       const newArr = jobs.filter(({ role, level, languages }) => {
@@ -21,16 +26,34 @@ function App() {
       setJobs(data);
     }
   }, [selection]);
+  // ADD ELEMENTS IN THE FILTER
+  const addFilter = (e) => {
+    let check = selection.some(() => {
+      return [...selection].includes(e.target.innerHTML);
+    });
+    if (!check) setSelection([...selection, e.target.innerHTML]);
+  };
+  // REMOVE THE SELECTED ELEMENT FROM THE FILTER
+  const removeSelection = (index) => {
+    const newArr = [...selection];
+    newArr.splice(index, 1);
+    setSelection(newArr);
+  };
+  // REMOVE ALL THE ELEMENTS FROM THE FILTER
+  const removeAll = () => {
+    setSelection([]);
+  };
   return (
     <>
-      <Header selection={selection} setSelection={setSelection} />
-      {jobs.map((data, index) => (
-        <Card
+      <header>
+        <Filter
           selection={selection}
-          setSelection={setSelection}
-          key={index}
-          data={data}
+          removeAll={removeAll}
+          removeSelection={removeSelection}
         />
+      </header>
+      {jobs.map((data, index) => (
+        <Card id={index} key={index} data={data} addFilter={addFilter} />
       ))}
     </>
   );
