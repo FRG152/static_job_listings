@@ -1,7 +1,7 @@
+import Logo from "./Info/Logo";
 import Company from "./Info/Company";
 import Details from "./Info/Details";
 import Requirements from "./Info/Requirements";
-import Logo from "./Info/Logo";
 
 const Card = ({ id, data, addFilter }) => {
   return (

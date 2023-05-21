@@ -1,8 +1,10 @@
+import photosnapLogo from "../../public/images/photosnap.svg";
+
 export const data = [
   {
     id: 1,
     company: "Photosnap",
-    logo: "../../public/images/photosnap.svg",
+    logo: photosnapLogo,
     newOffert: true,
     featured: true,
     position: "Senior Frontend Developer",
